@@ -101,22 +101,6 @@ class CacheItemPool implements CacheItemPoolInterface
   }
   
   /**
-   * @return SerializerInterface
-   */
-  public function getSerializer()
-  {
-    return $this->serializer;
-  }
-  
-  /**
-   * @param SerializerInterface $serializer
-   */
-  public function setSerializer(SerializerInterface $serializer)
-  {
-    $this->serializer = $serializer;
-  }
-  
-  /**
    * @return AdapterInterface
    */
   public function getAdapter()
