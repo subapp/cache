@@ -11,16 +11,17 @@ interface AdapterInterface
   
   /**
    * @param $key
-   * @return mixed
+   * @return array
    */
   public function retrieve($key);
   
   /**
    * @param $key
    * @param $data
-   * @return mixed
+   * @param null|int $ttl
+   * @return boolean
    */
-  public function save($key, $data);
+  public function save($key, $data, $ttl = null);
   
   /**
    * @param $key

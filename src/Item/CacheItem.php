@@ -1,7 +1,8 @@
 <?php
 
-namespace Colibri\Cache;
+namespace Colibri\Cache\Item;
 
+use Colibri\Cache\InvalidArgumentException;
 use Psr\Cache\CacheItemInterface;
 
 /**
@@ -11,7 +12,7 @@ use Psr\Cache\CacheItemInterface;
 class CacheItem implements CacheItemInterface
 {
   
-  const EXPIRATION = 'NOW +1 Month';
+  const EXPIRATION = 'NOW +1 Year';
   
   /**
    * @var string
@@ -24,12 +25,7 @@ class CacheItem implements CacheItemInterface
   protected $value;
   
   /**
-   * @var bool
-   */
-  protected $hit = false;
-  
-  /**
-   * @var \DateTimeInterface
+   * @var \DateTime
    */
   protected $expiration;
   
@@ -38,14 +34,12 @@ class CacheItem implements CacheItemInterface
    * @param string $key
    * @param null|string $value
    * @param null|int|\DateTimeInterface $ttl
-   * @param bool $hit
    */
-  public function __construct($key, $value = null, $ttl = null, $hit = false)
+  public function __construct($key, $value = null, $ttl = null)
   {
     $this->key = $key;
     $this->value = $value;
-    $this->hit = $hit;
-    
+
     $this->expiresAfter($ttl);
   }
   
@@ -54,7 +48,7 @@ class CacheItem implements CacheItemInterface
    */
   public function getKey()
   {
-    // TODO: Implement getKey() method.
+    return $this->key;
   }
   
   /**
@@ -62,7 +56,7 @@ class CacheItem implements CacheItemInterface
    */
   public function get()
   {
-    return $this->hit ? $this->value : null;
+    return $this->isHit() ? $this->value : null;
   }
   
   /**
@@ -70,7 +64,7 @@ class CacheItem implements CacheItemInterface
    */
   public function isHit()
   {
-    // TODO: Implement isHit() method.
+    return ($this->value || $this->expiration > (new \DateTime()));
   }
   
   /**
@@ -89,7 +83,7 @@ class CacheItem implements CacheItemInterface
   public function expiresAt($expiration)
   {
     switch (true) {
-      case ($expiration instanceOf \DateTimeInterface):
+      case ($expiration instanceOf \DateTime):
         $this->expiration = $expiration;
         break;
         
@@ -97,13 +91,13 @@ class CacheItem implements CacheItemInterface
         $this->expiration = new \DateTime();
         $this->expiration->setTimestamp($expiration);
         break;
-        
+  
       case (null === $expiration):
         $this->expiration = new \DateTime(static::EXPIRATION);
         break;
-        
+
       default:
-        throw new InvalidArgumentException('Integer or \DateTime object expected');
+        throw new InvalidArgumentException('Cache item expect integer or \DateTime object');
     }
     
     return $this;
@@ -114,32 +108,32 @@ class CacheItem implements CacheItemInterface
    */
   public function expiresAfter($time)
   {
+    $this->expiresAt(new \DateTime());
+    
     switch (true) {
-      case ($time instanceOf \DateTimeInterface):
-        $this->expiration = $time;
+      case ($time instanceOf \DatePeriod):
+        $this->expiration->add($time);
         break;
   
-      case ($time instanceOf \DatePeriod):
       case is_int($time):
-        $this->expiration = new \DateTime();
-        ($time instanceOf \DatePeriod)
-          ? $this->expiration->add($time) : $this->expiration->setTimestamp($time);
+        $time = $this->expiration->getTimestamp() + $time;
+        $this->expiration->setTimestamp($time);
         break;
     
       case (null === $time):
-        $this->expiration = new \DateTime(static::EXPIRATION);
         break;
     
       default:
-        throw new InvalidArgumentException('Integer or \DateTime object expected');
+        throw new InvalidArgumentException('Cache item expect integer or \DatePeriod object');
     }
-    
+  
+    return $this;
   }
   
   /**
    * @return int
    */
-  public function getItemTtl()
+  public function getTtl()
   {
     return $this->expiration->getTimestamp() - time();
   }

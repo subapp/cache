@@ -3,7 +3,7 @@
 namespace Colibri\Cache;
 
 use Colibri\Cache\Adapter\AdapterInterface;
-use Colibri\Cache\Serializer\SerializerInterface;
+use Colibri\Cache\Item\CacheItem;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -20,6 +20,11 @@ class CacheItemPool implements CacheItemPoolInterface
   protected $adapter;
   
   /**
+   * @var array|CacheItemInterface[]
+   */
+  protected $deferred = [];
+  
+  /**
    * CacheItemPool constructor.
    * @param AdapterInterface $adapter
    */
@@ -33,13 +38,15 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function getItem($key)
   {
-    return new CacheItem($key, $this->adapter->retrieve($key));
+    $item = new CacheItem(...$this->adapter->retrieve($key));
+    
+    return $item;
   }
   
   /**
    * @inheritDoc
    */
-  public function getItems(array $keys = array())
+  public function getItems(array $keys = [])
   {
     // TODO: Implement getItems() method.
   }
@@ -81,7 +88,10 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function save(CacheItemInterface $item)
   {
-    $this->adapter->save($item->getKey(), $item->get());
+    /** @var CacheItem $item */
+    $this->adapter->save($item->getKey(), $item->get(), $item->getTtl());
+    
+    return $this;
   }
   
   /**
@@ -89,7 +99,9 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function saveDeferred(CacheItemInterface $item)
   {
-    // TODO: Implement saveDeferred() method.
+    $this->deferred[$item->getKey()] = $item;
+    
+    return true;
   }
   
   /**
@@ -97,7 +109,13 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function commit()
   {
-    // TODO: Implement commit() method.
+    $success = true;
+    
+    while ($cacheItem = array_shift($this->deferred)) {
+      $success = $success && $this->save($cacheItem);
+    }
+    
+    return $success;
   }
   
   /**
