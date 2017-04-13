@@ -38,9 +38,29 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function getItem($key)
   {
-    $item = new CacheItem(...$this->adapter->retrieve($key));
+    if (isset($this->deferred[$key])) {
+      return $this->deferred[$key];
+    }
     
-    return $item;
+    $retrieved = $this->adapter->retrieve($key);
+    
+    if (false === $retrieved) {
+      $retrieved = [$key, null, null];
+    }
+  
+    // @todo hardcode
+    $retrieved[2] = $retrieved[2] - time();
+    
+    return new CacheItem(...$retrieved);
+  }
+  
+  /**
+   * @param $key
+   * @return mixed|null|string
+   */
+  public function getValue($key)
+  {
+    return $this->getItem($key)->get();
   }
   
   /**
@@ -48,7 +68,13 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function getItems(array $keys = [])
   {
-    // TODO: Implement getItems() method.
+    $collection = [];
+    
+    foreach ($keys as $key) {
+      $collection[$key] = $this->getItem($key);
+    }
+    
+    return $collection;
   }
   
   /**
@@ -56,7 +82,7 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function hasItem($key)
   {
-    // TODO: Implement hasItem() method.
+    return $this->getItem($key)->isHit() || isset($this->deferred[$key]);
   }
   
   /**
@@ -64,7 +90,7 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function clear()
   {
-    // TODO: Implement clear() method.
+    return $this->adapter->clear();
   }
   
   /**
@@ -72,7 +98,7 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function deleteItem($key)
   {
-    // TODO: Implement deleteItem() method.
+    return $this->adapter->remove($key);
   }
   
   /**
@@ -80,7 +106,13 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function deleteItems(array $keys)
   {
-    // TODO: Implement deleteItems() method.
+    $success = true;
+    
+    foreach ($keys as $key) {
+      $success = $success && ($this->deleteItem($key) || $this->deleteDeferred($key));
+    }
+    
+    return $success;
   }
   
   /**
@@ -89,7 +121,7 @@ class CacheItemPool implements CacheItemPoolInterface
   public function save(CacheItemInterface $item)
   {
     /** @var CacheItem $item */
-    $this->adapter->save($item->getKey(), $item->get(), $item->getTtl());
+    $this->adapter->save($item->getKey(), $item->get(), $item->getExpiration()->getTimestamp());
     
     return $this;
   }
@@ -102,6 +134,19 @@ class CacheItemPool implements CacheItemPoolInterface
     $this->deferred[$item->getKey()] = $item;
     
     return true;
+  }
+  
+  /**
+   * @param $key
+   * @return bool
+   */
+  public function deleteDeferred($key)
+  {
+    $success = isset($this->deferred[$key]);
+  
+    unset($this->deferred[$key]);
+    
+    return $success;
   }
   
   /**

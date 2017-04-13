@@ -44,4 +44,14 @@ class ArrayAdapter extends AbstractAdapter
     return !isset($this->cache[$key]);
   }
   
+  /**
+   * @inheritDoc
+   */
+  public function clear()
+  {
+    $this->cache = [];
+    
+    return true;
+  }
+  
 }

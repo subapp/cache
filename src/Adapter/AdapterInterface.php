@@ -11,7 +11,7 @@ interface AdapterInterface
   
   /**
    * @param $key
-   * @return array
+   * @return array|bool
    */
   public function retrieve($key);
   
@@ -25,8 +25,13 @@ interface AdapterInterface
   
   /**
    * @param $key
-   * @return mixed
+   * @return boolean
    */
   public function remove($key);
+  
+  /**
+   * @return boolean
+   */
+  public function clear();
   
 }

@@ -64,7 +64,7 @@ class CacheItem implements CacheItemInterface
    */
   public function isHit()
   {
-    return ($this->value || $this->expiration > (new \DateTime()));
+    return ($this->value && $this->expiration > (new \DateTime()));
   }
   
   /**
@@ -131,11 +131,11 @@ class CacheItem implements CacheItemInterface
   }
   
   /**
-   * @return int
+   * @return \DateTime
    */
-  public function getTtl()
+  public function getExpiration()
   {
-    return $this->expiration->getTimestamp() - time();
+    return clone $this->expiration;
   }
   
 }

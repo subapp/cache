@@ -42,4 +42,22 @@ abstract class AbstractAdapter implements AdapterInterface
     $this->serializer = $serializer;
   }
   
+  /**
+   * @param $data
+   * @return string
+   */
+  protected function serialize($data)
+  {
+    return $this->serializer->serialize($data);
+  }
+  
+  /**
+   * @param $serialized
+   * @return mixed
+   */
+  protected function unserialize($serialized)
+  {
+    return $this->serializer->unserialize($serialized);
+  }
+  
 }
