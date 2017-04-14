@@ -3,13 +3,12 @@
 namespace Colibri\Cache\Item;
 
 use Colibri\Cache\InvalidArgumentException;
-use Psr\Cache\CacheItemInterface;
 
 /**
  * Class CacheItem
  * @package Colibri\Cache
  */
-class CacheItem implements CacheItemInterface
+class CacheItem implements ItemInterface
 {
   
   const EXPIRATION = 'NOW +1 Year';

@@ -12,7 +12,17 @@ class ArrayAdapter extends AbstractAdapter
   /**
    * @var array
    */
-  protected $cache = [];
+  private $cache = [];
+  
+  /**
+   * @var int
+   */
+  private $hitsCount = 0;
+  
+  /**
+   * @var int
+   */
+  private $missesCount = 0;
   
   /**
    * @inheritDoc
@@ -53,5 +63,5 @@ class ArrayAdapter extends AbstractAdapter
     
     return true;
   }
-  
+
 }

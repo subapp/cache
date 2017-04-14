@@ -47,7 +47,7 @@ class FilesystemAdapter extends AbstractAdapter
     $filepath = $this->createFilepath($key);
     
     try {
-      return $this->serializer->unserialize($this->filesystem->read($filepath));
+      return $this->unserialize($this->filesystem->read($filepath));
     } catch (FileNotFoundException $exception) {}
     
     return false;
@@ -61,9 +61,9 @@ class FilesystemAdapter extends AbstractAdapter
     $filepath = $this->createFilepath($key);
 
     try {
-      return $this->filesystem->update($filepath, $this->serializer->serialize([$key, $data, $ttl]));
+      return $this->filesystem->update($filepath, $this->serialize([$key, $data, $ttl]));
     } catch (FileNotFoundException $exception) {
-      return $this->filesystem->write($filepath, $this->serializer->serialize([$key, $data, $ttl]));
+      return $this->filesystem->write($filepath, $this->serialize([$key, $data, $ttl]));
     }
   }
   

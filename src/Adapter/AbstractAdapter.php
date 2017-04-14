@@ -11,7 +11,7 @@ use Colibri\Cache\Serializer\SerializerInterface;
  */
 abstract class AbstractAdapter implements AdapterInterface
 {
-  
+
   /**
    * @var SerializerInterface
    */

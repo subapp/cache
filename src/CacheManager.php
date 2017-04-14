@@ -2,7 +2,7 @@
 
 namespace Colibri\Cache;
 
-use Psr\Cache\CacheItemPoolInterface;
+use Colibri\Cache\Pool\PoolInterface;
 
 /**
  * Class CacheManager
@@ -27,7 +27,7 @@ class CacheManager implements CacheManagerInterface, \ArrayAccess
   /**
    * @inheritDoc
    */
-  public function setPool($poolKey, CacheItemPoolInterface $pool)
+  public function setPool($poolKey, PoolInterface $pool)
   {
     $this->collection[$poolKey] = $pool;
     

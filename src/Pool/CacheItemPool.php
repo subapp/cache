@@ -1,17 +1,17 @@
 <?php
 
-namespace Colibri\Cache;
+namespace Colibri\Cache\Pool;
 
 use Colibri\Cache\Adapter\AdapterInterface;
 use Colibri\Cache\Item\CacheItem;
+use Colibri\Cache\Item\ItemInterface;
 use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Class CacheItemPool
  * @package Colibri\Cache
  */
-class CacheItemPool implements CacheItemPoolInterface
+class CacheItemPool implements PoolInterface
 {
   
   /**
@@ -33,8 +33,10 @@ class CacheItemPool implements CacheItemPoolInterface
     $this->adapter = $adapter;
   }
   
+  
   /**
-   * @inheritDoc
+   * @param string $key
+   * @return ItemInterface|CacheItemInterface
    */
   public function getItem($key)
   {
@@ -45,13 +47,13 @@ class CacheItemPool implements CacheItemPoolInterface
     $retrieved = $this->adapter->retrieve($key);
     
     if (false === $retrieved) {
-      $retrieved = [$key, null, null];
+      $retrieved = [$key, null, time()];
     }
-  
-    // @todo hardcode
-    $retrieved[2] = $retrieved[2] - time();
     
-    return new CacheItem(...$retrieved);
+    list($key, $value, $timestamp) = $retrieved;
+    $ttl = $timestamp - time();
+    
+    return new CacheItem($key, $value, $ttl);
   }
   
   /**
@@ -82,7 +84,7 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function hasItem($key)
   {
-    return $this->getItem($key)->isHit() || isset($this->deferred[$key]);
+    return $this->getItem($key)->isHit() || $this->hasDeferred($key);
   }
   
   /**
@@ -142,11 +144,19 @@ class CacheItemPool implements CacheItemPoolInterface
    */
   public function deleteDeferred($key)
   {
-    $success = isset($this->deferred[$key]);
+    $success = $this->hasDeferred($key);
   
     unset($this->deferred[$key]);
     
     return $success;
+  }
+  
+  /**
+   * @inheritDoc
+   */
+  public function hasDeferred($key)
+  {
+    return isset($this->deferred[$key]);
   }
   
   /**
@@ -170,5 +180,5 @@ class CacheItemPool implements CacheItemPoolInterface
   {
     return $this->adapter;
   }
-  
+
 }

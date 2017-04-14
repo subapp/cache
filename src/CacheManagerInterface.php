@@ -2,7 +2,7 @@
 
 namespace Colibri\Cache;
 
-use Psr\Cache\CacheItemPoolInterface;
+use Colibri\Cache\Pool\PoolInterface;
 
 /**
  * Interface CacheManagerInterface
@@ -13,16 +13,16 @@ interface CacheManagerInterface
   
   /**
    * @param $poolKey
-   * @return CacheItemPoolInterface
+   * @return PoolInterface
    */
   public function getPool($poolKey);
   
   /**
    * @param $poolKey
-   * @param CacheItemPoolInterface $pool
+   * @param PoolInterface $pool
    * @return $this
    */
-  public function setPool($poolKey, CacheItemPoolInterface $pool);
+  public function setPool($poolKey, PoolInterface $pool);
   
   /**
    * @param $poolKey
