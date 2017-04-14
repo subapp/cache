@@ -63,7 +63,7 @@ class CacheItem implements ItemInterface
    */
   public function isHit()
   {
-    return ($this->value && $this->expiration > (new \DateTime()));
+    return ($this->expiration > (new \DateTime()));
   }
   
   /**
