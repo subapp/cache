@@ -1,12 +1,12 @@
 {
-  "name": "dezbyte/colibri-cache",
+  "name": "colibriphp/cache",
   "description": "Colibri Cache Component",
   "keywords": ["php cache","cache","colibri cache","psr-6"],
   "authors": [
     {
-      "name": "Ivan Gontarenko",
+      "name": "Ivan Hontarenko",
       "email": "stewie.dev@gmail.com",
-      "homepage": "http://cv.dezz.pro/",
+      "homepage": "http://fux7.com/",
       "role": "Developer"
     }
   ],
