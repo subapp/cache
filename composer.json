@@ -1,5 +1,5 @@
 {
-  "name": "colibriphp/cache",
+  "name": "colibrilabs/cache",
   "description": "Colibri Cache Component",
   "keywords": ["php cache","cache","colibri cache","psr-6"],
   "authors": [
