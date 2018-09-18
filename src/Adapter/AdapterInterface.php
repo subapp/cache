@@ -1,10 +1,10 @@
 <?php
 
-namespace Colibri\Cache\Adapter;
+namespace Subapp\Cache\Adapter;
 
 /**
  * Interface AdapterInterface
- * @package Colibri\Cache\Adapter
+ * @package Subapp\Cache\Adapter
  */
 interface AdapterInterface
 {

@@ -1,2 +1,2 @@
 # colibri-cache
-Colibri Cache ⚡⚡⚡
+Subapp Cache ⚡⚡⚡

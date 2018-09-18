@@ -1,13 +1,13 @@
 <?php
 
-namespace Colibri\Cache\Adapter;
+namespace Subapp\Cache\Adapter;
 
-use Colibri\Cache\Serializer\SerializerInterface;
+use Subapp\Cache\Serializer\SerializerInterface;
 use Predis\Client;
 
 /**
  * Class PredisAdapter
- * @package Colibri\Cache\Adapter
+ * @package Subapp\Cache\Adapter
  */
 class PredisAdapter extends AbstractAdapter
 {

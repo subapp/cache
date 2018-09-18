@@ -1,10 +1,10 @@
 <?php
 
-namespace Colibri\Cache\Adapter;
+namespace Subapp\Cache\Adapter;
 
 /**
  * Class ArrayAdapter
- * @package Colibri\Cache\Adapter
+ * @package Subapp\Cache\Adapter
  */
 class ArrayAdapter extends AbstractAdapter
 {

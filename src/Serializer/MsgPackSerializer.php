@@ -1,12 +1,12 @@
 <?php
 
-namespace Colibri\Cache\Serializer;
+namespace Subapp\Cache\Serializer;
 
 /**
- * Class MsgpackSerializer
- * @package Colibri\Cache\Serializer
+ * Class MsgPackSerializer
+ * @package Subapp\Cache\Serializer
  */
-class MsgpackSerializer implements SerializerInterface
+class MsgPackSerializer implements SerializerInterface
 {
   
   /**
@@ -15,7 +15,7 @@ class MsgpackSerializer implements SerializerInterface
   public function __construct()
   {
     if (!extension_loaded('msgpack')) {
-      throw new \RuntimeException('Extension msgpack not installed on your server');
+      throw new \RuntimeException('Extension msgPack not installed on your server');
     }
   }
   

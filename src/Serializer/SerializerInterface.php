@@ -1,10 +1,10 @@
 <?php
 
-namespace Colibri\Cache\Serializer;
+namespace Subapp\Cache\Serializer;
 
 /**
  * Interface SerializerInterface
- * @package Colibri\Cache\Serializer
+ * @package Subapp\Cache\Serializer
  */
 interface SerializerInterface
 {

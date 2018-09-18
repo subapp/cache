@@ -1,12 +1,12 @@
 <?php
 
-namespace Colibri\Cache\Item;
+namespace Subapp\Cache\Item;
 
-use Colibri\Cache\InvalidArgumentException;
+use Subapp\Cache\InvalidArgumentException;
 
 /**
  * Class CacheItem
- * @package Colibri\Cache
+ * @package Subapp\Cache
  */
 class CacheItem implements ItemInterface
 {

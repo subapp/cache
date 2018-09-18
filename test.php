@@ -1,9 +1,9 @@
 <?php
 
-use Colibri\Cache\Adapter\FilesystemAdapter;
-use Colibri\Cache\CacheManager;
-use Colibri\Cache\Pool\CacheItemPool;
-use Colibri\Cache\Serializer\PhpSerializer;
+use Subapp\Cache\Adapter\FilesystemAdapter;
+use Subapp\Cache\CacheManager;
+use Subapp\Cache\Pool\CacheItemPool;
+use Subapp\Cache\Serializer\PhpSerializer;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 

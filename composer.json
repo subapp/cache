@@ -1,12 +1,11 @@
 {
-  "name": "colibrilabs/cache",
-  "description": "Colibri Cache Component",
-  "keywords": ["php cache","cache","colibri cache","psr-6"],
+  "name": "subapp/cache",
+  "description": "Subapp Cache Component",
+  "keywords": ["php cache","cache","subapp cache","psr-6"],
   "authors": [
     {
       "name": "Ivan Hontarenko",
-      "email": "stewie.dev@gmail.com",
-      "homepage": "http://fux7.com/",
+      "email": "ihontarenko@gmail.com",
       "role": "Developer"
     }
   ],
@@ -22,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Colibri\\Cache\\": "src/"
+      "Subapp\\Cache\\": "src/"
     }
   }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Colibri\Cache\Item;
+namespace Subapp\Cache\Item;
 
 use Psr\Cache\CacheItemInterface;
 
 /**
  * Interface ItemInterface
- * @package Colibri\Cache\Item
+ * @package Subapp\Cache\Item
  */
 interface ItemInterface extends CacheItemInterface
 {

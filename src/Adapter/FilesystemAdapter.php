@@ -1,14 +1,14 @@
 <?php
 
-namespace Colibri\Cache\Adapter;
+namespace Subapp\Cache\Adapter;
 
-use Colibri\Cache\Serializer\SerializerInterface;
+use Subapp\Cache\Serializer\SerializerInterface;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 
 /**
  * Class FilesystemAdapter
- * @package Colibri\Cache\Adapter
+ * @package Subapp\Cache\Adapter
  */
 class FilesystemAdapter extends AbstractAdapter
 {

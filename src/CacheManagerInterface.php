@@ -1,12 +1,12 @@
 <?php
 
-namespace Colibri\Cache;
+namespace Subapp\Cache;
 
-use Colibri\Cache\Pool\PoolInterface;
+use Subapp\Cache\Pool\PoolInterface;
 
 /**
  * Interface CacheManagerInterface
- * @package Colibri\Cache
+ * @package Subapp\Cache
  */
 interface CacheManagerInterface
 {

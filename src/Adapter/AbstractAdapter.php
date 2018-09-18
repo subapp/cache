@@ -1,13 +1,13 @@
 <?php
 
-namespace Colibri\Cache\Adapter;
+namespace Subapp\Cache\Adapter;
 
-use Colibri\Cache\Serializer\PhpSerializer;
-use Colibri\Cache\Serializer\SerializerInterface;
+use Subapp\Cache\Serializer\PhpSerializer;
+use Subapp\Cache\Serializer\SerializerInterface;
 
 /**
  * Class AbstractAdapter
- * @package Colibri\Cache\Adapter
+ * @package Subapp\Cache\Adapter
  */
 abstract class AbstractAdapter implements AdapterInterface
 {

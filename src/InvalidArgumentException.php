@@ -1,10 +1,10 @@
 <?php
 
-namespace Colibri\Cache;
+namespace Subapp\Cache;
 
 /**
  * Class InvalidArgumentException
- * @package Colibri\Cache
+ * @package Subapp\Cache
  */
 class InvalidArgumentException extends \InvalidArgumentException implements \Psr\Cache\InvalidArgumentException
 {

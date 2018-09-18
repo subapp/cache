@@ -1,15 +1,15 @@
 <?php
 
-namespace Colibri\Cache\Pool;
+namespace Subapp\Cache\Pool;
 
-use Colibri\Cache\Adapter\AdapterInterface;
-use Colibri\Cache\Item\CacheItem;
-use Colibri\Cache\Item\ItemInterface;
+use Subapp\Cache\Adapter\AdapterInterface;
+use Subapp\Cache\Item\CacheItem;
+use Subapp\Cache\Item\ItemInterface;
 use Psr\Cache\CacheItemInterface;
 
 /**
  * Class CacheItemPool
- * @package Colibri\Cache
+ * @package Subapp\Cache
  */
 class CacheItemPool implements PoolInterface
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Colibri\Cache\Adapter;
+namespace Subapp\Cache\Adapter;
 
-use Colibri\Cache\Serializer\SerializerInterface;
+use Subapp\Cache\Serializer\SerializerInterface;
 
 /**
  * Class RedisAdapter
- * @package Colibri\Cache\Adapter
+ * @package Subapp\Cache\Adapter
  */
 class RedisAdapter extends AbstractAdapter
 {
